@@ -1,0 +1,37 @@
+﻿@using MvcStokProjem.Models.Entity
+@model List<TBL_MUSTERI>
+@{
+    ViewBag.Title = "Urunler";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@using (Html.BeginForm("Index", "Musteri", FormMethod.Get))
+{
+    <p>
+        <b>Aranacak Müşteri Adı:</b> @Html.TextBox("p")
+        <input type="submit" value="Ara"/>
+    </p>
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>Müşteri Id</th>
+        <th>Müşteri Ad</th>
+        <th>Müşteri Soyad</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    <tbody>
+        @foreach (var mstr in Model)
+        {
+        <tr>
+            <th>@mstr.MUSTERIID</th>
+            <td>@mstr.MUSTERIAD</td>
+            <td>@mstr.MUSTERISOYAD</td>
+            @*<td><a href="/Musteri/SIL/@mstr.MUSTERIID" class="btn btn-danger">SİL</a></td>*@
+            <td>@Html.ActionLink("SİL","Sil",new { id=mstr.MUSTERIID }, new { @class = "btn btn-danger", onclick = "return confirm('Silme işlemi gerçekleşsin mi?')" })</td>
+            <td><a href="/Musteri/MusteriGetir/@mstr.MUSTERIID" class=" btn btn-success">GÜNCELLE</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a href="/Musteri/YeniMusteri/" class="btn btn-primary">YENİ MÜŞTERİ EKLE</a>
